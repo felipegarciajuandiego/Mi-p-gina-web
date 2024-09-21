@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💙NOSOTROS ♥️</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ADD8E6; /* Fondo azul suave */
+            text-align: center;
+            padding: 20px;
+            overflow-y: auto; /* Permitir desplazamiento vertical */
+            height: 100vh; /* Altura completa de la ventana */
+        }
+
+        .container {
+            background-color: #E6E6FA; /* Violeta claro */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 0; /* Detrás de los corazones y rosas que caen */
+            color: black; /* Color de texto negro */
+            margin-bottom: 100px; /* Espacio en la parte inferior para evitar solapamiento */
+        }
+
+        img {
+            width: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .frase {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        #contador {
+            font-size: 1.2rem;
+        }
+
+        .elemento {
+            position: absolute;
+            font-size: 2rem; /* Tamaño de los elementos */
+            animation: fall linear infinite;
+            z-index: 1; /* Por delante del contenedor */
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        .estado {
+            margin-top: 20px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            font-size: 1rem;
+            cursor: pointer;
+            background-color: pink; /* Color rosa para los botones */
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: lightcoral; /* Cambia a un color más oscuro al pasar el ratón */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💙NOSOTROS ♥️</h1>
+        <img src="https://i.postimg.cc/N01dT3jS/IMG-20240908-WA0064-1.jpg" alt="Foto de nosotros">
+        <img src="https://i.postimg.cc/Vkwgw7RF/IMG-20240825-WA0028.jpg" alt="Otra foto" />
+        <p class="frase">"Cada momento contigo es un tesoro."</p>
+        <p id="contador">Llevamos juntos:</p>
+        <div class="estado">
+            <p>Abrir cuando estés:</p>
+            <button onclick="alert('Quiero que siempre te sientas así. ❤️')">Feliz</button>
+            <button onclick="alert('Te quiero mucho y quiero que te sientas mejor💌')">Triste</button>
+            <button onclick="alert('Entiendo que estés agotada de todo. Es normal sentirse así a veces.')">Cansada</button>
+            <button onclick="alert('Llámame y hagamos un plan 😚')">Aburrida</button>
+            <button onclick="alert('Estoy aquí para ti siempre que me necesites. 💖')">Sola</button>
+        </div>
+    </div>
+
+    <script>
+        function actualizarContador() {
+            const fechaInicio = new Date('2024-08-22T00:00:00'); // Fecha de inicio de la relación
+            const ahora = new Date(); // Fecha y hora actuales
+
+            const diferenciaMs = ahora - fechaInicio; // Diferencia en milisegundos
+            const segundosTotales = Math.floor(diferenciaMs / 1000);
+
+            const dias = Math.floor(segundosTotales / (60 * 60 * 24)); // Días totales
+            const horas = Math.floor((segundosTotales % (60 * 60 * 24)) / (60 * 60)); // Horas
+            const minutos = Math.floor((segundosTotales % (60 * 60)) / 60); // Minutos
+            const segundos = segundosTotales % 60; // Segundos
+
+            // Actualizar el contenido en la página
+            document.getElementById('contador').textContent = `Llevamos juntos: ${dias} días, ${horas} horas, ${minutos} minutos y ${segundos} segundos.`;
+        }
+
+        // Llamar a la función cada segundo
+        setInterval(actualizarContador, 1000);
+
+        // Función para crear el elemento que cae
+        function crearElemento() {
+            const elemento = document.createElement('div');
+            elemento.classList.add('elemento');
+            const tipo = Math.random();
+            if (tipo < 0.33) {
+                elemento.textContent = '♥️'; // Corazón rojo
+                elemento.style.color = 'red';
+            } else if (tipo < 0.66) {
+                elemento.textContent = '💙'; // Corazón azul
+                elemento.style.color = 'blue';
+            } else {
+                elemento.textContent = '🌹'; // Rosa
+                elemento.style.color = 'pink';
+            }
+            elemento.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
+            elemento.style.animationDuration = Math.random() * 3 + 2 + 's'; // Duración aleatoria de caída
+
+            document.body.appendChild(elemento);
+
+            // Eliminar el elemento después de que termine la animación
+            setTimeout(() => {
+                elemento.remove();
+            }, 5000);
+        }
+
+        // Crear elementos en intervalos
+        setInterval(crearElemento, 1000);  // Cada 1 segundo
+    </script>
+</body>
+</html>
